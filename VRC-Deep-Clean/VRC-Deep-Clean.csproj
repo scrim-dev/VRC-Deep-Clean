@@ -19,7 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="VRCDeepCleanLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="VRCDeepCleanLogo.ico" />
+    <EmbeddedResource Include="VRCDeepCleanLogo.png" />
   </ItemGroup>
 
   <ItemGroup>
