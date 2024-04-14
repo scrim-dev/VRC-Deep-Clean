@@ -7,4 +7,5 @@ This is VRC Deep Clean, a comprehensive solution for VRChat users. This tool not
 
 ### Credits & Inspirations
 https://github.com/DubyaDude/VRChat-Analytics-Blocker
+
 https://github.com/Dean2k/VRChatCleanup
