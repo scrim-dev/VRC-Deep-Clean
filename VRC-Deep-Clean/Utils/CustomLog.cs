@@ -7,12 +7,32 @@ namespace VRC_Deep_Clean.Utils
     {
         //255, 41, 126 - secondary color
         //187, 28, 255 - main color
+        public static void SaveLogs()
+        {
+            var dir = Directory.GetCurrentDirectory();
+            try 
+            {
+                using StreamWriter writer = new(dir + "\\Saved_Logs.txt");
+                string line;
+#pragma warning disable CS8600
+                while ((line = Console.ReadLine()) != null)
+                {
+                    writer.WriteLine(line);
+                }
+#pragma warning restore CS8600
+            }
+            catch
+            {
+
+            }
+        }
+
         public static string ConsoleTitle { get; set; } = "VRC Deep Clean";
-        private static string ConsoleWorkTitleThing { get; set; }
+        private static string? ConsoleWorkTitleThing { get; set; }
         public static void SetWorkingTitle(string title) => ConsoleWorkTitleThing = title;
 
-        private static CancellationTokenSource Cancellation = new();
-        private static List<char> AppName = new()
+        private static readonly CancellationTokenSource Cancellation = new();
+        private static readonly List<char> AppName = new()
         {
             'D','e','e','p','C','l','e','a','n'
         };

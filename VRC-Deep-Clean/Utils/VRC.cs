@@ -9,7 +9,7 @@ namespace VRC_Deep_Clean.Utils
 {
     internal class VRC
     {
-        private static int vrc_id = 438100;
+        public static bool StartInVR = false;
         public static void Install()
         {
             CustomLog.Warn("[INSTALL] Sending Steam App protocol / command...");
@@ -17,7 +17,7 @@ namespace VRC_Deep_Clean.Utils
             CustomLog.SetWorkingTitle("Installing VRChat...");
             try
             {
-                Process.Start($"steam://install/{vrc_id}");
+                Process.Start(Batch.InstallVRC);
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace VRC_Deep_Clean.Utils
             CustomLog.SetWorkingTitle("Uninstalling VRChat...");
             try
             {
-                Process.Start($"steam://uninstall/{vrc_id}");
+                Process.Start(Batch.UninstallVRC);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,14 @@ namespace VRC_Deep_Clean.Utils
             CustomLog.SetWorkingTitle("Launching VRChat...");
             try
             {
-                Process.Start($"steam://launch/{vrc_id}");
+                if (StartInVR)
+                {
+                    Process.Start(Batch.StartVRCBatVR);
+                }
+                else
+                {
+                    Process.Start(Batch.StartVRCBatNoVR);
+                }
             }
             catch (Exception ex)
             {
@@ -169,9 +176,6 @@ namespace VRC_Deep_Clean.Utils
                 CustomLog.Error("UnityHub cache folder doesn't exist (it's probably deleted already or missing)");
             }
 
-            /*
-             * Idk if I should add this or not
-             * 
             if (Directory.Exists(RoamPath + "\\VRCX"))
             {
                 CustomLog.Warn($"Found: VRCX Roaming path, attempting to delete...");
@@ -181,7 +185,7 @@ namespace VRC_Deep_Clean.Utils
             {
                 CustomLog.Error("VRCX Cache folder doesn't exist (it's probably deleted already or missing)");
             }
-            */
+
             #endregion
 
             CustomLog.Log("All folders checked and cleaned!");
@@ -189,6 +193,11 @@ namespace VRC_Deep_Clean.Utils
             CustomLog.Warn("Beginning Regedit...");
 
             CleanerUtils.RegDelete(@"Software\VRChat");
+            Thread.Sleep(1000);
+
+            CustomLog.Warn("Flushing DNS...");
+            FlushDNS();
+
             CustomLog.Log("Clean up completed!");
             Thread.Sleep(4500);
         }
@@ -241,7 +250,9 @@ namespace VRC_Deep_Clean.Utils
                 "tracking.prd.mz.internal.unity3d.com",
                 "unityads.unity3d.com",
                 "userreporting.cloud.unity3d.com",
-                "webview.unityads.unity3d.com"
+                "webview.unityads.unity3d.com",
+                "crashlogs.woniu.com",
+                "stats.unity3d.com"
             };
 
             try
@@ -260,6 +271,52 @@ namespace VRC_Deep_Clean.Utils
             {
                 CustomLog.Error($"Something failed!\n{ex.Message}");
             }
+        }
+
+        private static void FlushDNS()
+        {
+            ProcessStartInfo startInfo = new()
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c ipconfig /flushdns",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
+
+            try
+            {
+                CustomLog.Warn("Flushing DNS...");
+                Process.Start(startInfo);
+                CustomLog.Log("Flushed DNS!");
+            }
+            catch
+            {
+                CustomLog.Error("Failed to flush DNS :(");
+            }
+        }
+
+        public static void Reinstall()
+        {
+            CustomLog.Warn("Uninstalling VRC...");
+
+            try 
+            { 
+                Process.Start(Batch.UninstallVRC);
+                CustomLog.Log("Done!");
+            } 
+            catch { }
+            CustomLog.Log("Please wait...");
+            Thread.Sleep(10000);
+
+            CustomLog.Warn("Installing VRC...");
+            try
+            {
+                Process.Start(Batch.InstallVRC);
+                CustomLog.Log("Done!");
+            }
+            catch { }
         }
 
         public static void KillPotentialProcesses()

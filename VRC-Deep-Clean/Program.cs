@@ -5,7 +5,7 @@ namespace VRC_Deep_Clean
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.Title = string.Empty;
             Console.OutputEncoding = Encoding.UTF8;
@@ -13,6 +13,8 @@ namespace VRC_Deep_Clean
             Console.SetWindowSize(120, 35);
 
             CustomLog._Thread(true);
+
+            Batch.Create();
 
             VRC.KillPotentialProcesses();
             Thread.Sleep(3000);
@@ -23,11 +25,14 @@ namespace VRC_Deep_Clean
             CustomLog.SetWorkingTitle("Menu Selection.");
             CustomLog.Msg("Welcome! Please select an option:");
 
-            CustomLog.Msg("↓↓↓\n\n[1] Delete and Clean up ALL of VRChat | [2] Delete, Uninstall, Clean ALL of VRChat and Reinstall");
+            CustomLog.Msg("↓↓↓\n\n[1] Delete and Clean up ALL of VRChat | [2] Delete, Uninstall, Clean ALL of VRChat and Reinstall | " +
+                "[3] Simple Reinstall");
 
             try
             {
+#pragma warning disable CS8604
                 int selection = int.Parse(Console.ReadLine());
+#pragma warning restore CS8604
                 switch (selection)
                 {
                     case 1:
@@ -79,6 +84,11 @@ namespace VRC_Deep_Clean
                         Thread.Sleep(3000);
                         Quit();
                         break;
+                    case 3:
+                        Console.Clear();
+                        CustomLog.Logo();
+                        VRC.Reinstall();
+                        break;
                     default:
                         Console.Clear();
                         CustomLog.Logo();
@@ -105,6 +115,7 @@ namespace VRC_Deep_Clean
 
         private static void Quit()
         {
+            CustomLog.SaveLogs();
             CustomLog.SetWorkingTitle("Shutting down app...");
             Console.Clear();
             CustomLog.Warn("Goodbye! :D");
