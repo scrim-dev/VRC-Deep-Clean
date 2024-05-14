@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using VRC_Deep_Clean.Utils;
 
 namespace VRC_Deep_Clean
@@ -9,6 +10,9 @@ namespace VRC_Deep_Clean
         {
             Console.Title = string.Empty;
             Console.OutputEncoding = Encoding.UTF8;
+#pragma warning disable CS8622
+            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+#pragma warning restore CS8622
 
             Console.SetWindowSize(120, 35);
 
@@ -27,6 +31,11 @@ namespace VRC_Deep_Clean
 
             CustomLog.Msg("↓↓↓\n\n[1] Delete and Clean up ALL of VRChat | [2] Delete, Uninstall, Clean ALL of VRChat and Reinstall | " +
                 "[3] Simple Reinstall");
+
+            /*
+             * CustomLog.Msg("↓↓↓\n\n[1] Delete and Clean up ALL of VRChat | [2] Delete, Uninstall, Clean ALL of VRChat and Reinstall | " +
+                "[3] Simple Reinstall | [4] Use GUI");
+             */
 
             try
             {
@@ -87,8 +96,17 @@ namespace VRC_Deep_Clean
                     case 3:
                         Console.Clear();
                         CustomLog.Logo();
+                        CustomLog.SetWorkingTitle("Reinstalling VRChat...");
                         VRC.Reinstall();
+                        CustomLog.Log("Finished all steps!");
+                        Thread.Sleep(3500);
+                        Quit();
                         break;
+                    case 4:
+                        //Will do in a later update
+                        Console.Clear();
+                        Thread.Sleep(1);
+                        goto MainMenu;
                     default:
                         Console.Clear();
                         CustomLog.Logo();
@@ -113,6 +131,9 @@ namespace VRC_Deep_Clean
             Quit();
         }
 
+        //Better quit than just clicking X
+        private static void OnProcessExit(object sender, EventArgs e) { Quit(); }
+
         private static void Quit()
         {
             CustomLog.SaveLogs();
@@ -121,7 +142,7 @@ namespace VRC_Deep_Clean
             CustomLog.Warn("Goodbye! :D");
             CustomLog.Warn("Closing app in 3s");
             Thread.Sleep(3000);
-            Environment.Exit(0);
+            try { Process.GetCurrentProcess().Kill(); } catch { Environment.Exit(0); }
         }
     }
 }

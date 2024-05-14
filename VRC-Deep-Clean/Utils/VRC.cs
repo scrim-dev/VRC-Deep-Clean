@@ -299,22 +299,20 @@ namespace VRC_Deep_Clean.Utils
 
         public static void Reinstall()
         {
-            CustomLog.Warn("Uninstalling VRC...");
+            CustomLog.Warn("Reinstalling VRC...");
 
             try 
             { 
                 Process.Start(Batch.UninstallVRC);
-                CustomLog.Log("Done!");
             } 
             catch { }
-            CustomLog.Log("Please wait...");
-            Thread.Sleep(10000);
 
-            CustomLog.Warn("Installing VRC...");
+            CustomLog.Log("Please wait...");
+            Thread.Sleep(20000);
+
             try
             {
                 Process.Start(Batch.InstallVRC);
-                CustomLog.Log("Done!");
             }
             catch { }
         }

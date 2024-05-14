@@ -9,22 +9,7 @@ namespace VRC_Deep_Clean.Utils
         //187, 28, 255 - main color
         public static void SaveLogs()
         {
-            var dir = Directory.GetCurrentDirectory();
-            try 
-            {
-                using StreamWriter writer = new(dir + "\\Saved_Logs.txt");
-                string line;
-#pragma warning disable CS8600
-                while ((line = Console.ReadLine()) != null)
-                {
-                    writer.WriteLine(line);
-                }
-#pragma warning restore CS8600
-            }
-            catch
-            {
-
-            }
+            //Need to fix this later
         }
 
         public static string ConsoleTitle { get; set; } = "VRC Deep Clean";
