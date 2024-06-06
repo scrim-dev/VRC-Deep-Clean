@@ -8,11 +8,13 @@ namespace VRC_Deep_Clean.Utils
 {
     internal class Batch
     {
+        private static int VRCid { get; } = 0;
         public static readonly string BatchFolder = Directory.GetCurrentDirectory() + "\\Bat";
         public static readonly string StartVRCBatNoVR = BatchFolder + "\\StartVRC_NoVR.bat";
         public static readonly string StartVRCBatVR = BatchFolder + "\\StartVRC_VR.bat";
         public static readonly string InstallVRC = BatchFolder + "\\Install.bat";
         public static readonly string UninstallVRC = BatchFolder + "\\Uninstall.bat";
+        public static readonly string OpenGH = BatchFolder + "\\GH.bat";
 
         public static void Create()
         {
@@ -30,61 +32,76 @@ namespace VRC_Deep_Clean.Utils
             //novr
             try
             {
-                File.WriteAllText(StartVRCBatNoVR, "start steam://rungameid/438100 -novr");
+                File.WriteAllText(StartVRCBatNoVR, $"start steam://rungameid/{VRCid} -novr");
 
                 if(File.Exists(StartVRCBatNoVR))
                 {
-                    CustomLog.Log("Batch file 1/4 created");
+                    CustomLog.Log("Batch file 1/5 created");
                 }
             }
             catch
             {
-                CustomLog.Error("Failed to write batch file 1/4");
+                CustomLog.Error("Failed to write batch file 1/5");
             }
 
             //vrmode
             try
             {
-                File.WriteAllText(StartVRCBatVR, "start steam://rungameid/438100 -vrmode");
+                File.WriteAllText(StartVRCBatVR, $"start steam://rungameid/{VRCid} -vrmode");
 
                 if (File.Exists(StartVRCBatVR))
                 {
-                    CustomLog.Log("Batch file 2/4 created");
+                    CustomLog.Log("Batch file 2/5 created");
                 }
             }
             catch
             {
-                CustomLog.Error("Failed to write batch file 2/4");
+                CustomLog.Error("Failed to write batch file 2/5");
             }
 
             //Install
             try
             {
-                File.WriteAllText(InstallVRC, "start steam://install/438100");
+                File.WriteAllText(InstallVRC, $"start steam://install/{VRCid}");
 
                 if (File.Exists(InstallVRC))
                 {
-                    CustomLog.Log("Batch file 3/4 created");
+                    CustomLog.Log("Batch file 3/5 created");
                 }
             }
             catch
             {
-                CustomLog.Error("Failed to write batch file 3/4");
+                CustomLog.Error("Failed to write batch file 3/5");
             }
 
             //Uninstall
             try
             {
-                File.WriteAllText(UninstallVRC, "start steam://uninstall/438100");
+                File.WriteAllText(UninstallVRC, $"start steam://uninstall/{VRCid}");
 
                 if (File.Exists(UninstallVRC))
                 {
-                    CustomLog.Log("Batch file 4/4 created");
+                    CustomLog.Log("Batch file 4/5 created");
                 }
             }
             catch
             {
-                CustomLog.Error("Failed to write batch file 4/4");
+                CustomLog.Error("Failed to write batch file 4/5");
+            }
+
+            //Github redirect
+            try
+            {
+                File.WriteAllText(OpenGH, $"start https://github.com/scrim-dev/VRC-Deep-Clean/releases");
+
+                if (File.Exists(OpenGH))
+                {
+                    CustomLog.Log("Batch file 5/5 created");
+                }
+            }
+            catch
+            {
+                CustomLog.Error("Failed to write batch file 5/5");
             }
 
             CustomLog.SetWorkingTitle(string.Empty);

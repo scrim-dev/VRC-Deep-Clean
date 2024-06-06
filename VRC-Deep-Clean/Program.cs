@@ -8,11 +8,11 @@ namespace VRC_Deep_Clean
     {
         private static void Main(string[] args)
         {
+            //Entry
             Console.Title = string.Empty;
             Console.OutputEncoding = Encoding.UTF8;
-#pragma warning disable CS8622
+
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
-#pragma warning restore CS8622
 
             Console.SetWindowSize(120, 35);
 
@@ -21,7 +21,7 @@ namespace VRC_Deep_Clean
             Batch.Create();
 
             VRC.KillPotentialProcesses();
-            Thread.Sleep(3000);
+            Thread.Sleep(3500);
 
             MainMenu: //Default jump
             Console.Clear();
@@ -30,18 +30,11 @@ namespace VRC_Deep_Clean
             CustomLog.Msg("Welcome! Please select an option:");
 
             CustomLog.Msg("↓↓↓\n\n[1] Delete and Clean up ALL of VRChat | [2] Delete, Uninstall, Clean ALL of VRChat and Reinstall | " +
-                "[3] Simple Reinstall");
-
-            /*
-             * CustomLog.Msg("↓↓↓\n\n[1] Delete and Clean up ALL of VRChat | [2] Delete, Uninstall, Clean ALL of VRChat and Reinstall | " +
-                "[3] Simple Reinstall | [4] Use GUI");
-             */
+                "[3] Simple Reinstall | [4] Check for Updates");
 
             try
             {
-#pragma warning disable CS8604
                 int selection = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604
                 switch (selection)
                 {
                     case 1:
@@ -103,9 +96,8 @@ namespace VRC_Deep_Clean
                         Quit();
                         break;
                     case 4:
-                        //Will do in a later update
-                        Console.Clear();
-                        Thread.Sleep(1);
+                        //Swapped out the GUI edition cuz its kinda pointless
+                        UpdateUtils.Check();
                         goto MainMenu;
                     default:
                         Console.Clear();
@@ -131,12 +123,10 @@ namespace VRC_Deep_Clean
             Quit();
         }
 
-        //Better quit than just clicking X
         private static void OnProcessExit(object sender, EventArgs e) { Quit(); }
 
         private static void Quit()
         {
-            CustomLog.SaveLogs();
             CustomLog.SetWorkingTitle("Shutting down app...");
             Console.Clear();
             CustomLog.Warn("Goodbye! :D");

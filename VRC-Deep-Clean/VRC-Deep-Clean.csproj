@@ -18,6 +18,14 @@
     <FileVersion>0.0.0.0</FileVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8604;8622;8622</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8604;8622;8622</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="VRCDeepCleanLogo.png" />
   </ItemGroup>

@@ -51,9 +51,7 @@ namespace VRC_Deep_Clean.Utils
             try
             {
                 Registry.CurrentUser.DeleteSubKeyTree(key);
-                bool keyExists = Registry.CurrentUser.OpenSubKey(key) != null;
-
-                if (!keyExists)
+                if (Registry.CurrentUser.OpenSubKey(key) != null)
                 {
                     CustomLog.Log("Registry key deleted / removed!");
                 }

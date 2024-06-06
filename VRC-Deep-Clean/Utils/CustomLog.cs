@@ -7,10 +7,6 @@ namespace VRC_Deep_Clean.Utils
     {
         //255, 41, 126 - secondary color
         //187, 28, 255 - main color
-        public static void SaveLogs()
-        {
-            //Need to fix this later
-        }
 
         public static string ConsoleTitle { get; set; } = "VRC Deep Clean";
         private static string? ConsoleWorkTitleThing { get; set; }

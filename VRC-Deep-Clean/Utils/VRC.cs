@@ -114,6 +114,27 @@ namespace VRC_Deep_Clean.Utils
             #endregion
 
             #region Local
+
+            if (Directory.Exists(LocalPath + "\\log"))
+            {
+                CustomLog.Warn($"Found: Logging local path, attempting to delete...");
+                CleanerUtils.Delete(LocalPath + "\\log");
+            }
+            else
+            {
+                CustomLog.Error("Logging local folder doesn't exist (it's probably deleted already or missing)");
+            }
+
+            if (Directory.Exists(LocalPath + "\\CrashDumps"))
+            {
+                CustomLog.Warn($"Found: CrashDumper local path, attempting to delete...");
+                CleanerUtils.Delete(LocalPath + "\\CrashDumps");
+            }
+            else
+            {
+                CustomLog.Error("CrashDumper local folder doesn't exist (it's probably deleted already or missing)");
+            }
+
             if (Directory.Exists(LocalPath + "\\VRChatCreatorCompanion"))
             {
                 CustomLog.Warn($"Found: VRCCC (Creator Companion) local path, attempting to delete...");
@@ -194,9 +215,17 @@ namespace VRC_Deep_Clean.Utils
 
             CleanerUtils.RegDelete(@"Software\VRChat");
             Thread.Sleep(1000);
+            CleanerUtils.RegDelete(@"Software\VCC");
+            Thread.Sleep(1000);
+            CleanerUtils.RegDelete(@"Software\Unity\UnityEditor\DefaultCompany");
+            Thread.Sleep(1000);
+            CleanerUtils.RegDelete(@"Software\Valve\Steam\Apps\438100"); //438100 - VRChat App ID
+            Thread.Sleep(1000);
 
             CustomLog.Warn("Flushing DNS...");
             FlushDNS();
+            CustomLog.Warn("Doing other network resets...");
+            NetworkUtils.Reset();
 
             CustomLog.Log("Clean up completed!");
             Thread.Sleep(4500);
