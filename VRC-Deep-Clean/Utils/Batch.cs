@@ -8,7 +8,7 @@ namespace VRC_Deep_Clean.Utils
 {
     internal class Batch
     {
-        private static int VRCid { get; } = 0;
+        private static int VRCid { get; } = 438100; //App ID
         public static readonly string BatchFolder = Directory.GetCurrentDirectory() + "\\Bat";
         public static readonly string StartVRCBatNoVR = BatchFolder + "\\StartVRC_NoVR.bat";
         public static readonly string StartVRCBatVR = BatchFolder + "\\StartVRC_VR.bat";
