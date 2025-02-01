@@ -1,11 +1,26 @@
 # VRC-Deep-Clean
+
 <p align="center">
-  <img src="https://github.com/scrim-dev/VRC-Deep-Clean/blob/master/VRC-Deep-Clean/VRCDeepCleanLogo.png" alt="logo" width="200">
+  <img src="https://github.com/scrim-dev/VRC-Deep-Clean/blob/master/VRC-Deep-Clean/VRCDeepCleanLogo.png" alt="VRC Deep Clean Logo" width="200">
 </p>
-This is VRC Deep Clean, a comprehensive solution for VRChat users. This tool not only cleanses cache files to boost performance but also safeguards privacy by blocking spying analytics. With its convenient reinstallation feature, VRC Deep Clean ensures a seamless and secure VRChat experience.
-(Yes that paragraph is AI generated, but it works, the tool is simple it cleans the VRChat cache and anything that is related to it; FULLY AND it gets rid of the spying analytics oh, and it has the option to reinstall VRChat or uninstall it completely)
+
+<div align="center">
+
+  
+  [![Releases](https://img.shields.io/badge/Download%20Now-%235A2D82?style=for-the-badge)](https://github.com/scrim-dev/VRC-Deep-Clean/releases)
+</div>
+
+### **VRCDC**
+
+This tool is designed to:
+- Remove all the big cache files and left overs from VRChat.
+- Blocks VRChat and Unity's analytics and tracking hosts.
+- Free up system space that's been cluttered by VRChat.
+
+### How to
+Just launch VRCDC read the instructions on the CLI menu and clean up!
+Takes just 3 minutes to clean everything!
 
 ### Credits & Inspirations
-https://github.com/DubyaDude/VRChat-Analytics-Blocker
-
-https://github.com/Dean2k/VRChatCleanup
+- [VRChat Analytics Blocker](https://github.com/DubyaDude/VRChat-Analytics-Blocker) By DubyaDude
+- [VRChatCleanup](https://github.com/Dean2k/VRChatCleanup) By Dean2k
