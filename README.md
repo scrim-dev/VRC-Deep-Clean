@@ -19,6 +19,7 @@ This tool is designed to:
 
 ### How to
 Just launch VRCDC read the instructions on the CLI menu and clean up!
+
 Takes just 3 minutes to clean everything!
 
 ### Credits & Inspirations
